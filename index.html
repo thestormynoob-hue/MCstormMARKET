@@ -3,14 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>استورم مارکت✨</title>
+  <title>STORM MARKET</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     /* منوی کشویی */
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
+    .dropdown { position: relative; display: inline-block; }
     .dropdown-content {
       display: none;
       position: absolute;
@@ -26,37 +23,23 @@
       padding: 8px 12px;
       text-decoration: none;
       display: block;
-      transition: 0.2s;
       cursor: pointer;
     }
-    .dropdown-content a:hover {
-      background: rgba(255,255,255,0.1);
-    }
-    .dropdown:hover .dropdown-content {
-      display: block;
-      animation: fadeIn 0.2s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-5px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
+    .dropdown-content a:hover { background: rgba(255,255,255,0.1); }
+    .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.2s ease-in-out; }
+    @keyframes fadeIn { from {opacity:0; transform:translateY(-5px);} to {opacity:1; transform:translateY(0);} }
 
-    /* پنهان/نمایش بخش‌ها */
+    /* نمایش/پنهان بخش‌ها */
     .shop-section { display: none; }
     .shop-section.active { display: block; }
   </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="header-left">
-      <h1>استورم مارکت✨</h1>
-    </div>
-
+    <div class="header-left"><h1>STORM MARKET✨</h1></div>
     <div class="header-right">
       <nav>
         <a href="#home">خانه</a>
-
-        <!-- منوی کشویی محصولات -->
         <div class="dropdown">
           <a href="#">محصولات ▾</a>
           <div class="dropdown-content">
@@ -64,7 +47,6 @@
             <a id="show-skins">👕 اسکین‌ها</a>
           </div>
         </div>
-
         <a href="#contact">تماس</a>
       </nav>
       <a href="#" class="login-btn">ورود</a>
@@ -74,7 +56,7 @@
   <main>
     <section id="home" class="hero">
       <h2>به فروشگاه استورم مارکت خوش آمدید ! 👾</h2>
-      <p>ریسورس پک، مود و اسکین‌های باحال برای بازی شما!</p>
+      <p>ریسورس پک، اسکین و چیزهای باحال برای بازی شما!</p>
     </section>
 
     <!-- بخش ریسورس پک‌ها -->
@@ -84,53 +66,42 @@
         <div class="product-card">
           <img src="resources/texturepack1.png" alt="§BSTORM PACK §f[§616x§f]">
           <h4>ریسورسپک استورم ⚡</h4>
-          <p>قیمت: رایگان</p>
           <a href="resources/§BSTORM PACK §f[§616x§f].zip" download class="btn">دانلود</a>
         </div>
         <div class="product-card">
-
-        <div class="product-card">
-          <img src="resources/texturepack3.png" alt="ChristmasPack_1.20.1">
-          <h4>ریسورسپک کریسمس 🎅</h4>
-          <p>قیمت: رایگان</p>
-          <a href="resources/ChristmasPack_1.20.1.zip" download class="btn">دانلود</a>
+          <img src="resources/texturepack2.png" alt="Winstone_16x16">
+          <h4>ریسورپک WinStone 💎</h4>
+          <a href="resources/Winstone_16x16.zip" download class="btn">دانلود</a>
         </div>
         <div class="product-card">
           <img src="resources/texturepack3.png" alt="ChristmasPack_1.20.1">
           <h4>ریسورسپک کریسمس 🎅</h4>
-          <p>قیمت: رایگان</p>
           <a href="resources/ChristmasPack_1.20.1.zip" download class="btn">دانلود</a>
         </div>
       </div>
     </section>
 
-<!-- بخش اسکین‌ها -->
-<section id="skins" class="shop shop-section">
-  <h3>اسکین‌ها 👕</h3>
-  <div class="products">
-
-    <div class="product-card">
-      <!-- فقط عکس پیش‌نمایش نمایش داده میشه -->
-      <img src="skin/preview_skin1.png" alt="اسکین شماره ۱">
-      <h4>اسکین شماره ۱</h4>
-      <a href="skin/skin1.png" download class="btn">دانلود</a>
-    </div>
-
-    <div class="product-card">
-      <img src="skin/preview_skin2.png" alt="اسکین شماره ۲">
-      <h4>اسکین شماره ۲</h4>
-      <a href="skin/skin2.png" download class="btn">دانلود</a>
-    </div>
-
-    <div class="product-card">
-      <img src="skin/preview_skin3.png" alt="اسکین شماره ۳">
-      <h4>اسکین شماره ۳</h4>
-      <a href="skin/skin3.png" download class="btn">دانلود</a>
-    </div>
-
-  </div>
-</section>
-    
+    <!-- بخش اسکین‌ها -->
+    <section id="skins" class="shop shop-section">
+      <h3>اسکین‌ها 👕</h3>
+      <div class="products">
+        <div class="product-card">
+          <img src="skin/preview_skin1.png" alt="اسکین شماره ۱">
+          <h4>اسکین شماره ۱</h4>
+          <a href="skin/skin1.png" download class="btn">دانلود</a>
+        </div>
+        <div class="product-card">
+          <img src="skin/preview_skin2.png" alt="اسکین شماره ۲">
+          <h4>اسکین شماره ۲</h4>
+          <a href="skin/skin2.png" download class="btn">دانلود</a>
+        </div>
+        <div class="product-card">
+          <img src="skin/preview_skin3.png" alt="اسکین شماره ۳">
+          <h4>اسکین شماره ۳</h4>
+          <a href="skin/skin3.png" download class="btn">دانلود</a>
+        </div>
+      </div>
+    </section>
 
     <section id="contact" class="card">
       <h3>تماس با ما</h3>
@@ -145,16 +116,12 @@
   <script>
     const packs = document.getElementById('packs');
     const skins = document.getElementById('skins');
-    const showPacks = document.getElementById('show-packs');
-    const showSkins = document.getElementById('show-skins');
-
-    showPacks.addEventListener('click', () => {
+    document.getElementById('show-packs').addEventListener('click', () => {
       packs.classList.add('active');
       skins.classList.remove('active');
       window.scrollTo({top: packs.offsetTop, behavior: 'smooth'});
     });
-
-    showSkins.addEventListener('click', () => {
+    document.getElementById('show-skins').addEventListener('click', () => {
       skins.classList.add('active');
       packs.classList.remove('active');
       window.scrollTo({top: skins.offsetTop, behavior: 'smooth'});
