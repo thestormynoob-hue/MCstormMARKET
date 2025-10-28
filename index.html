@@ -5,6 +5,46 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>استورم مارکت✨</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* منوی کشویی */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(4px);
+      min-width: 130px;
+      border-radius: 10px;
+      text-align: right;
+      z-index: 99;
+    }
+    .dropdown-content a {
+      color: var(--text);
+      padding: 8px 12px;
+      text-decoration: none;
+      display: block;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .dropdown-content a:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-5px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* پنهان/نمایش بخش‌ها */
+    .shop-section { display: none; }
+    .shop-section.active { display: block; }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -15,7 +55,16 @@
     <div class="header-right">
       <nav>
         <a href="#home">خانه</a>
-        <a href="#shop">فروشگاه</a>
+
+        <!-- منوی کشویی محصولات -->
+        <div class="dropdown">
+          <a href="#">محصولات ▾</a>
+          <div class="dropdown-content">
+            <a id="show-packs">🎨 ریسورس‌پک‌ها</a>
+            <a id="show-skins">👕 اسکین‌ها</a>
+          </div>
+        </div>
+
         <a href="#contact">تماس</a>
       </nav>
       <a href="#" class="login-btn">ورود</a>
@@ -26,39 +75,61 @@
     <section id="home" class="hero">
       <h2>به فروشگاه استورم مارکت خوش آمدید ! 👾</h2>
       <p>ریسورس پک، مود و اسکین‌های باحال برای بازی شما!</p>
-      <a class="btn" href="#shop">مشاهده محصولات</a>
     </section>
 
-    <section id="shop" class="shop">
-      <h3>محصولات</h3>
+    <!-- بخش ریسورس پک‌ها -->
+    <section id="packs" class="shop shop-section active">
+      <h3>ریسورس‌پک‌ها 🎨</h3>
       <div class="products">
-
-        <!-- محصول 1 -->
         <div class="product-card">
           <img src="resources/texturepack1.png" alt="§BSTORM PACK §f[§616x§f]">
           <h4>ریسورسپک استورم ⚡</h4>
-          <p>قیمت:رایگان</p>
+          <p>قیمت: رایگان</p>
           <a href="resources/§BSTORM PACK §f[§616x§f].zip" download class="btn">دانلود</a>
         </div>
-
-        <!-- محصول 2 -->
         <div class="product-card">
           <img src="resources/texturepack2.png" alt="§BWinstone §f[§616x§f]">
           <h4>ریسورپک WinStone 💎</h4>
-          <p>قیمت:رایگان</p>
+          <p>قیمت: رایگان</p>
           <a href="resources/§BWinstone §f[§616x§f].zip" download class="btn">دانلود</a>
         </div>
-
-        <!-- محصول 3 -->
         <div class="product-card">
           <img src="resources/texturepack3.png" alt="ChristmasPack_1.20.1">
-          <h4>ریسورسپک کریسمس🎅</h4>
-          <p>قیمت:رایگان</p>
+          <h4>ریسورسپک کریسمس 🎅</h4>
+          <p>قیمت: رایگان</p>
           <a href="resources/ChristmasPack_1.20.1.zip" download class="btn">دانلود</a>
         </div>
-
       </div>
     </section>
+
+<!-- بخش اسکین‌ها -->
+<section id="skins" class="shop shop-section">
+  <h3>اسکین‌ها 👕</h3>
+  <div class="products">
+
+    <div class="product-card">
+      <!-- فقط عکس پیش‌نمایش نمایش داده میشه -->
+      <img src="skin/preview_skin1.png" alt="اسکین شماره ۱">
+      <h4>اسکین شماره ۱</h4>
+      <a href="skin/skin1.png" download class="btn">دانلود</a>
+    </div>
+
+    <div class="product-card">
+      <img src="skin/preview_skin2.png" alt="اسکین شماره ۲">
+      <h4>اسکین شماره ۲</h4>
+      <a href="skin/skin2.png" download class="btn">دانلود</a>
+    </div>
+
+    <div class="product-card">
+      <img src="skin/preview_skin3.png" alt="اسکین شماره ۳">
+      <h4>اسکین شماره ۳</h4>
+      <a href="skin/skin3.png" download class="btn">دانلود</a>
+    </div>
+
+  </div>
+</section>
+
+#--------------------------------------------
 
     <section id="contact" class="card">
       <h3>تماس با ما</h3>
@@ -70,25 +141,23 @@
     <p>© ۲۰۲۵ ایلیا — ساخته شده با ❤️</p>
   </footer>
 
-  <!-- پنجره ورود -->
-  <div id="login-modal" class="login-modal">
-    <div class="login-box">
-      <h3>ورود به حساب</h3>
-      <input type="text" placeholder="نام کاربری">
-      <input type="password" placeholder="رمز عبور">
+  <script>
+    const packs = document.getElementById('packs');
+    const skins = document.getElementById('skins');
+    const showPacks = document.getElementById('show-packs');
+    const showSkins = document.getElementById('show-skins');
 
-      <button class="btn google-btn">
-        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo">
-        ادامه با Google
-      </button>
+    showPacks.addEventListener('click', () => {
+      packs.classList.add('active');
+      skins.classList.remove('active');
+      window.scrollTo({top: packs.offsetTop, behavior: 'smooth'});
+    });
 
-      <div class="login-actions">
-        <button class="btn" id="login-confirm">ورود</button>
-        <button class="btn" id="login-close">بستن</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+    showSkins.addEventListener('click', () => {
+      skins.classList.add('active');
+      packs.classList.remove('active');
+      window.scrollTo({top: skins.offsetTop, behavior: 'smooth'});
+    });
+  </script>
 </body>
 </html>
