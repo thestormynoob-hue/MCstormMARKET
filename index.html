@@ -3,10 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>STORM MARKET</title>
+  <title>استورم مارکت 💎</title>
+
+  <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Sign-In -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
-    /* منوی کشویی */
     .dropdown { position: relative; display: inline-block; }
     .dropdown-content {
       display: none;
@@ -29,14 +34,43 @@
     .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.2s ease-in-out; }
     @keyframes fadeIn { from {opacity:0; transform:translateY(-5px);} to {opacity:1; transform:translateY(0);} }
 
-    /* نمایش/پنهان بخش‌ها */
     .shop-section { display: none; }
     .shop-section.active { display: block; }
+
+    /* Google Login Button */
+    #g_id_onload, .g_id_signin {
+      display:inline-block;
+      vertical-align:middle;
+    }
+    .g_id_signin {
+      transform: scale(0.9);
+      margin-left: 10px;
+    }
   </style>
 </head>
+
 <body>
   <header class="site-header">
-    <div class="header-left"><h1>STORM MARKET✨</h1></div>
+    <div class="header-left" style="display:flex;align-items:center;gap:10px;">
+      <h1>STORM MARKET✨</h1>
+
+      <!-- دکمه ورود با گوگل -->
+      <div id="g_id_onload"
+           data-client_id="880081159110-stcmf4n7s6b9tt13s8kvjgldhqcuott0.apps.googleusercontent.com"
+           data-callback="handleCredentialResponse"
+           data-auto_prompt="false">
+      </div>
+
+      <div class="g_id_signin"
+           data-type="standard"
+           data-size="medium"
+           data-theme="outline"
+           data-text="signin_with"
+           data-shape="pill"
+           data-logo_alignment="left">
+      </div>
+    </div>
+
     <div class="header-right">
       <nav>
         <a href="#home">خانه</a>
@@ -49,7 +83,6 @@
         </div>
         <a href="#contact">تماس</a>
       </nav>
-      <a href="#" class="login-btn">ورود</a>
     </div>
   </header>
 
@@ -59,29 +92,30 @@
       <p>ریسورس پک، اسکین و چیزهای باحال برای بازی شما!</p>
     </section>
 
-    <!-- بخش ریسورس پک‌ها -->
     <section id="packs" class="shop shop-section active">
       <h3>ریسورس‌پک‌ها 🎨</h3>
       <div class="products">
         <div class="product-card">
           <img src="resources/texturepack1.png" alt="§BSTORM PACK §f[§616x§f]">
           <h4>ریسورسپک استورم ⚡</h4>
+          <p>قیمت💸: رایگان</p>
           <a href="resources/§BSTORM PACK §f[§616x§f].zip" download class="btn">دانلود</a>
         </div>
         <div class="product-card">
           <img src="resources/texturepack2.png" alt="Winstone_16x16">
           <h4>ریسورپک WinStone 💎</h4>
+          <p>قیمت💸: رایگان</p>
           <a href="resources/Winstone_16x16.zip" download class="btn">دانلود</a>
         </div>
         <div class="product-card">
           <img src="resources/texturepack3.png" alt="ChristmasPack_1.20.1">
           <h4>ریسورسپک کریسمس 🎅</h4>
+          <p>قیمت💸: رایگان</p>
           <a href="resources/ChristmasPack_1.20.1.zip" download class="btn">دانلود</a>
         </div>
       </div>
     </section>
 
-    <!-- بخش اسکین‌ها -->
     <section id="skins" class="shop shop-section">
       <h3>اسکین‌ها 👕</h3>
       <div class="products">
@@ -114,6 +148,7 @@
   </footer>
 
   <script>
+    // بخش جابجایی اسکین و پک
     const packs = document.getElementById('packs');
     const skins = document.getElementById('skins');
     document.getElementById('show-packs').addEventListener('click', () => {
@@ -126,6 +161,22 @@
       packs.classList.remove('active');
       window.scrollTo({top: skins.offsetTop, behavior: 'smooth'});
     });
+
+    // ✅ هندل کردن ورود گوگل
+    function handleCredentialResponse(response) {
+      const data = parseJwt(response.credential);
+      alert(`خوش اومدی ${data.name} 😎`);
+    }
+
+    // رمزگشایی JWT
+    function parseJwt (token) {
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    }
   </script>
 </body>
 </html>
