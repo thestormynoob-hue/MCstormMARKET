@@ -8,44 +8,42 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// کلید از Environment Variable در Render
+// کلید API از Environment Variables گرفته می‌شود (در Render تنظیمش کردی)
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
+// تست سلامت سرور
 app.get("/", (req, res) => {
-  res.send("✅ Storm Gemini Server is running!");
+  res.send("✅ Storm Gemini Server (v1beta) is running!");
 });
 
+// مسیر اصلی برای چت
 app.post("/api/gemini", async (req, res) => {
   const prompt = req.body.prompt || "";
 
   try {
+    // آدرس مخصوص API نسخه v1beta
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/text-bison-001:generateText?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: prompt }] }]
+          prompt: { text: prompt },
+          temperature: 0.7,
+          candidateCount: 1
         })
       }
     );
 
     const data = await response.json();
-    console.log("Gemini raw:", JSON.stringify(data)); // برای تست در لاگ Render
+    console.log("Gemini raw:", JSON.stringify(data));
 
+    // گرفتن پاسخ از API
     let reply = "❌ پاسخی از Gemini دریافت نشد.";
 
     if (data?.candidates?.length) {
-      // حالت اصلی پاسخ
-      const candidate = data.candidates[0];
-      if (candidate?.content?.parts?.length) {
-        reply = candidate.content.parts.map(p => p.text).join(" ");
-      }
-    } else if (data?.promptFeedback?.blockReason) {
-      // اگر گوگل درخواست رو بلاک کرده
-      reply = "گوگل درخواست را مسدود کرد (" + data.promptFeedback.blockReason + ")";
+      reply = data.candidates[0].output || data.candidates[0].content || reply;
     } else if (data?.error?.message) {
-      // اگر خطا از API برگشته
       reply = "خطا از Google API: " + data.error.message;
     }
 
@@ -56,5 +54,6 @@ app.post("/api/gemini", async (req, res) => {
   }
 });
 
+// پورت پیش‌فرض Render
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Storm Gemini Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Storm Gemini Server (v1beta) running on port ${PORT}`));
