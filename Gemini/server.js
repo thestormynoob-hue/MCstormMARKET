@@ -8,11 +8,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// ❗ نکته مهم:
-// هیچ‌وقت کلید API رو مستقیم نذار (مثل این پایین).
-// Render اجازه می‌ده API key رو در محیط امن (Environment Variables) ذخیره کنی.
-// فعلاً برای تست موقت، اینجا بنویس ولی بعداً باید حذفش کنی.
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "AIzaSyAUWACaMmkve8aKr-viKgYq3xyuCcy3GXg";
+// کلید از Environment Variable در Render
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 app.get("/", (req, res) => {
   res.send("✅ Storm Gemini Server is running!");
@@ -28,15 +25,29 @@ app.post("/api/gemini", async (req, res) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }]
+          contents: [{ role: "user", parts: [{ text: prompt }] }]
         })
       }
     );
 
     const data = await response.json();
-    const reply =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "❌ پاسخی از Gemini دریافت نشد.";
+    console.log("Gemini raw:", JSON.stringify(data)); // برای تست در لاگ Render
+
+    let reply = "❌ پاسخی از Gemini دریافت نشد.";
+
+    if (data?.candidates?.length) {
+      // حالت اصلی پاسخ
+      const candidate = data.candidates[0];
+      if (candidate?.content?.parts?.length) {
+        reply = candidate.content.parts.map(p => p.text).join(" ");
+      }
+    } else if (data?.promptFeedback?.blockReason) {
+      // اگر گوگل درخواست رو بلاک کرده
+      reply = "گوگل درخواست را مسدود کرد (" + data.promptFeedback.blockReason + ")";
+    } else if (data?.error?.message) {
+      // اگر خطا از API برگشته
+      reply = "خطا از Google API: " + data.error.message;
+    }
 
     res.json({ reply });
   } catch (error) {
