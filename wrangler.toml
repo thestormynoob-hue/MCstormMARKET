@@ -1,7 +1,9 @@
-name = "fixedproject"
-main = "Gemini/server.js"
+name = "storm-gemini"
+main = "Gemini/worker.js"
 compatibility_date = "2024-10-31"
+
+# ✅ محیط اجرا بدون Node.js
+compatibility_flags = ["nodejs_compat"]
 
 [vars]
 GEMINI_API_KEY = "AIzaSyAUWACaMmkve8aKr-viKgYq3xyuCcy3GXg"
-
