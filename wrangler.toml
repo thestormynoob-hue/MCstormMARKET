@@ -1,6 +1,7 @@
-name = "mcstormmarket"
+name = "fixedproject"
 main = "Gemini/server.js"
 compatibility_date = "2024-10-31"
 
 [vars]
 GEMINI_API_KEY = "AIzaSyAUWACaMmkve8aKr-viKgYq3xyuCcy3GXg"
+
