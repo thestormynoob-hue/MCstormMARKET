@@ -3,69 +3,60 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>استورم مارکت 💎</title>
+  <title>استورم مارکت💎</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- Google Sign-In -->
+  <!-- Google Identity -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
+    /* ====== پایه‌ای صفحه (حفظ ظاهر فایل قبلی) ====== */
     :root{
-      --bg:#071025;
-      --card:#0b1220;
-      --accent:#6ee7b7;
-      --text:#e6eef8;
-      --muted:rgba(230,238,248,0.7);
+      --bg1:#0f1720; --bg2:#071025; --card: rgba(255,255,255,0.03);
+      --accent:#6ee7b7; --muted:#e6eef8;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial;direction:rtl;background:linear-gradient(180deg,var(--bg),#0f1720);color:var(--text)}
-    header{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:rgba(255,255,255,0.02);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
-    .brand{font-weight:800;font-size:1.05rem}
-    nav{display:flex;align-items:center;gap:14px}
-    nav a{color:var(--text);text-decoration:none}
-    nav a:hover{color:var(--accent)}
+    html,body{height:100%; margin:0; font-family:"Segoe UI", Tahoma, sans-serif; direction:rtl; color:var(--muted);}
+    body{background:linear-gradient(180deg,var(--bg1),var(--bg2));}
+    header{display:flex; justify-content:space-between; align-items:center; padding:10px 20px; background:rgba(255,255,255,0.04); backdrop-filter:blur(6px); position:sticky; top:0; z-index:10}
+    .brand{font-weight:700}
+    nav{display:flex; gap:15px; align-items:center}
+    nav a{color:var(--muted); text-decoration:none}
     .dropdown{position:relative}
-    .dropdown-content{display:none;position:absolute;right:0;top:100%;background:var(--card);padding:6px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.5)}
+    .dropdown-content{display:none; position:absolute; top:100%; right:0; background:#071225; border-radius:10px; min-width:160px; box-shadow:0 8px 20px rgba(0,0,0,.4);}
     .dropdown:hover .dropdown-content{display:block}
-    .dropdown-content a{display:block;padding:8px 12px;color:var(--text);text-decoration:none}
-    .container{max-width:1000px;margin:24px auto;padding:0 16px}
-    h1,h2,h3{margin:0}
-    .hero{padding:30px 0;text-align:center}
-    .product-grid{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:18px}
-    .product-card{width:260px;background:rgba(255,255,255,0.03);border-radius:12px;padding:12px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.5)}
-    .product-card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
-    .skin-card img{height:320px;object-fit:contain;background:#0a1220;border-radius:8px;padding:6px}
-    .btn{display:inline-block;padding:8px 14px;border-radius:10px;background:var(--accent);color:#00221a;font-weight:700;text-decoration:none;margin-top:8px}
-    .btn.view{background:#3da6d6;color:#fff}
-    #contact.card{background:rgba(255,255,255,0.04);border-radius:16px;padding:20px;max-width:420px;margin:40px auto;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.5)}
-    /* profile */
-    .auth-area{display:flex;align-items:center;gap:8px}
-    #user-profile{display:none;align-items:center;gap:8px;position:relative}
-    #user-profile img{width:36px;height:36px;border-radius:50%;cursor:pointer;border:2px solid rgba(255,255,255,0.08)}
-    #logout-menu{display:none;position:absolute;top:44px;left:0;background:var(--card);padding:8px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.5)}
-    #logout-menu div{padding:6px 10px;cursor:pointer}
-    #logout-menu div:hover{background:rgba(255,255,255,0.03)}
-
-    /* responsive */
-    @media (max-width:720px){
-      .product-card{width:46%}
-      .skin-card img{height:220px}
+    .container{max-width:1000px; margin:auto; padding:20px; text-align:center}
+    h2{margin:8px 0}
+    .product-grid{display:flex; flex-wrap:wrap; gap:20px; justify-content:center}
+    .product-card{width:260px; background:var(--card); border-radius:12px; padding:12px; box-shadow:0 6px 18px rgba(0,0,0,.4); text-align:center}
+    .product-card img{width:100%; height:150px; object-fit:cover; border-radius:8px}
+    .skin-card img{width:100%; height:320px; object-fit:contain; background:#071225; border-radius:10px}
+    .btn{display:inline-block; padding:8px 14px; background:var(--accent); color:#001b16; border-radius:8px; text-decoration:none; margin-top:8px; font-weight:700}
+    .btn.view{background:#3da6d6; color:white}
+    #contact{background:rgba(255,255,255,0.05); border-radius:16px; max-width:420px; margin:40px auto; padding:20px; box-shadow:0 6px 20px rgba(0,0,0,.4)}
+    /* auth */
+    .auth-area{display:flex; align-items:center; gap:10px}
+    #user-profile{display:none; align-items:center; gap:10px; position:relative}
+    #user-profile img{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);cursor:pointer}
+    #logout-menu{display:none; position:absolute; top:46px; left:0; background:#071225; border-radius:8px; padding:8px; box-shadow:0 4px 16px rgba(0,0,0,.4)}
+    #logout-menu div{cursor:pointer;padding:6px 10px}
+    /* chat widget */
+    .chat-widget{position:fixed; right:20px; bottom:20px; width:360px; max-width:calc(100% - 40px); background:linear-gradient(180deg,#071225,#04101a); border-radius:12px; box-shadow:0 12px 40px rgba(0,0,0,0.6); overflow:hidden; z-index:9999; display:flex; flex-direction:column}
+    .chat-header{display:flex; align-items:center; justify-content:space-between; padding:10px 12px; background:rgba(0,0,0,0.15)}
+    .chat-body{padding:12px; height:280px; overflow:auto; display:flex; flex-direction:column; gap:10px}
+    .chat-input{display:flex; gap:8px; padding:10px; border-top:1px solid rgba(255,255,255,0.03)}
+    .chat-input textarea{flex:1; min-height:44px; max-height:120px; resize:vertical; background:#021018; color:var(--muted); border:1px solid rgba(255,255,255,0.04); padding:8px; border-radius:8px}
+    .msg{max-width:85%; padding:8px 10px; border-radius:10px; line-height:1.3; word-break:break-word}
+    .msg.user{align-self:flex-end; background:linear-gradient(90deg,#6ee7b7,#3da6d6); color:#031918}
+    .msg.bot{align-self:flex-start; background:#0b1220; color:var(--muted)}
+    .small{font-size:12px; color:#9fb6c6}
+    /* small screens */
+    @media (max-width:520px){
+      .chat-widget{width:94%; right:3%; bottom:12px}
     }
-    @media (max-width:420px){
-      .product-card{width:100%}
-    }
-
-    /* ========== Gemini Chat Widget styles ========== */
-    .chat-toggle{position:fixed;right:18px;bottom:20px;z-index:1200;background:var(--accent);color:#00221a;border:none;padding:12px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,0.5);font-weight:800;cursor:pointer;display:flex;align-items:center;gap:10px}
-    .chat-panel{position:fixed;right:18px;bottom:80px;width:360px;max-width:92vw;height:520px;max-height:82vh;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.6);display:flex;flex-direction:column;overflow:hidden;z-index:1200;border:1px solid rgba(255,255,255,0.03)}
-    .chat-header{padding:12px 12px;border-bottom:1px solid rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center}
-    .chat-body{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
-    .chat-footer{padding:10px;border-top:1px solid rgba(255,255,255,0.02);display:flex;gap:8px;background:linear-gradient(180deg,rgba(0,0,0,0.01),transparent)}
-    .chat-footer input{flex:1;padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.02);color:var(--text);outline:none}
-    .chat-footer button{background:var(--accent);border:none;padding:10px 12px;border-radius:10px;color:#00221a;font-weight:800;cursor:pointer}
-    .msg{max-width:78%;padding:10px 12px;border-radius:10px;line-height:1.3}
-    .msg.user{align-self:flex-end;background:linear-gradient(90deg,var(--accent),#4fd6a6);color:#00221a;border-bottom-right-radius:4px}
-    .msg.bot{align-self:flex-start;background:rgba(255,255,255,0.03);color:var(--text);border-bottom-left-radius:4px}
-    .typing{font-style:italic;color:var(--muted)}
+    /* other small UI */
+    .settings-row{display:flex; gap:8px; align-items:center; justify-content:center; margin-top:6px}
+    .toggle{display:inline-flex; align-items:center; gap:8px}
+    .danger{background:#ff6b6b;color:#fff}
   </style>
 </head>
 <body>
@@ -84,308 +75,325 @@
       <a href="#contact">تماس با ما</a>
     </nav>
 
-    <div class="auth-area" aria-hidden="false">
-      <!-- Google Sign-In loader -->
+    <!-- Google SignIn area -->
+    <div class="auth-area">
+      <!-- onload config for new google identity -->
       <div id="g_id_onload"
-           data-client_id="880081159110-stcmf4n7s6b9tt13s8kvjgldhqcuott0.apps.googleusercontent.com"
-           data-callback="handleCredentialResponse"
-           data-auto_prompt="false">
+        data-client_id="880081159110-stcmf4n7s6b9tt13s8kvjgldhqcuott0.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse"
+        data-auto_prompt="false">
       </div>
 
       <div class="g_id_signin"
-           data-type="standard"
-           data-shape="pill"
-           data-theme="outline"
-           data-text="signin_with"
-           data-size="medium">
+        data-type="standard"
+        data-shape="pill"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="medium">
       </div>
 
-      <!-- profile UI -->
-      <div id="user-profile" aria-live="polite">
-        <img id="user-pic" src="" alt="تصویر کاربر">
-        <div id="user-name"></div>
+      <div id="user-profile">
+        <img id="user-pic" src="">
+        <span id="user-name"></span>
         <div id="logout-menu"><div id="logout-btn">خروج</div></div>
       </div>
     </div>
   </header>
 
-  <main class="container" id="main">
-    <section id="home" class="hero">
-      <h1>به استورم مارکت خوش آمدی ⚡</h1>
-      <p class="small" style="color:var(--muted);margin-top:8px">ریسورس‌پک‌ها، اسکین‌ها و مودهای منتخب برای ماینکرافت</p>
+  <main class="container">
+    <section id="home">
+      <h2>به استورم مارکت خوش آمدید</h2>
+      <p>بهترین ریسورس‌پک‌ها و اسکین‌ها برای ماینکرافت!</p>
     </section>
 
     <section id="packs-section">
       <h2>🎨 ریسورس‌پک‌ها</h2>
-      <div class="product-grid" id="packs-grid">
+      <div class="product-grid">
         <div class="product-card">
-          <img src="resources/texturepack1.png" alt="ریسورس پک استورم">
-          <h4>ریسورسپک استورم ⚡</h4>
-          <div style="margin-top:10px">
-            <a href="resources/§BSTORM PACK §f[§616x§f].zip" download class="btn">دانلود</a>
-            <a href="pack1.html" class="btn view">مشاهده بیشتر</a>
-          </div>
+          <img src="resources/texturepack1.png" alt="BSTORM PACK">
+          <h4>ریسورسپک بدوارز استورم مارکت ⚡</h4>
+          <a href="resources/§BSTORM PACK §f[§616x§f].zip" download class="btn">دانلود</a>
+          <a href="pack1.html" class="btn view">مشاهده بیشتر</a>
         </div>
 
         <div class="product-card">
-          <img src="resources/texturepack2.png" alt="WinStone">
-          <h4>ریسورپک بدوارز WinStone 💎</h4>
-          <div style="margin-top:10px">
-            <a href="resources/Winstone_16x16.zip" download class="btn">دانلود</a>
-            <a href="pack2.html" class="btn view">مشاهده بیشتر</a>
-          </div>
+          <img src="resources/texturepack2.png" alt="Winstone">
+          <h4>ریسورسپک بدوارز WinStone 💎</h4>
+          <a href="resources/Winstone_16x16.zip" download class="btn">دانلود</a>
+          <a href="pack2.html" class="btn view">مشاهده بیشتر</a>
         </div>
 
         <div class="product-card">
-          <img src="resources/texturepack3.png" alt="Christmas Pack">
+          <img src="resources/texturepack3.png" alt="Christmas">
           <h4>ریسورسپک کریسمس 🎅</h4>
-          <div style="margin-top:10px">
-            <a href="resources/ChristmasPack_1.20.1.zip" download class="btn">دانلود</a>
-            <a href="pack3.html" class="btn view">مشاهده بیشتر</a>
-          </div>
+          <a href="resources/ChristmasPack_1.20.1.zip" download class="btn">دانلود</a>
+          <a href="pack3.html" class="btn view">مشاهده بیشتر</a>
         </div>
       </div>
     </section>
 
-    <section id="skins-section" style="display:none">
+    <section id="skins-section" style="display:none;">
       <h2>👕 اسکین‌ها</h2>
       <div class="product-grid">
         <div class="product-card skin-card">
-          <img src="skin/preview_skin1.png" alt="اسکین 1">
+          <img src="skin/preview_skin1.png" alt="">
           <h4>اسکین شماره ۱</h4>
           <a href="skin/skin1.png" download class="btn">دانلود</a>
         </div>
         <div class="product-card skin-card">
-          <img src="skin/preview_skin2.png" alt="اسکین 2">
+          <img src="skin/preview_skin2.png" alt="">
           <h4>اسکین شماره ۲</h4>
           <a href="skin/skin2.png" download class="btn">دانلود</a>
         </div>
         <div class="product-card skin-card">
-          <img src="skin/preview_skin3.png" alt="اسکین 3">
+          <img src="skin/preview_skin3.png" alt="">
           <h4>اسکین شماره ۳</h4>
           <a href="skin/skin3.png" download class="btn">دانلود</a>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="card">
+    <section id="contact">
       <h3>تماس با ما</h3>
       <p>📧 vestarsite@gmail.com</p>
       <p>📱 Discord: stormy.noob</p>
     </section>
   </main>
 
-  <!-- Gemini Chat widget -->
-  <button id="chatToggle" class="chat-toggle" aria-expanded="false">💬 چت با Gemini</button>
-
-  <div id="chatPanel" class="chat-panel" style="display:none" role="dialog" aria-label="چت با Gemini">
+  <!-- ===== Chat widget (پایین-راست) ===== -->
+  <div id="chat" class="chat-widget" aria-hidden="false">
     <div class="chat-header">
-      <div>
-        <strong>Gemini (تست)</strong>
-        <div style="font-size:0.85rem;color:var(--muted)">فارسی و انگلیسی پشتیبانی می‌شود</div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <strong>Storm Chat (Gemini)</strong>
+        <span class="small" id="chat-status" style="margin-right:6px;color:#9fb6c6">آفلاین</span>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
-        <button id="chatClose" style="background:transparent;border:none;color:var(--muted);cursor:pointer">✕</button>
+        <label class="small" style="margin-left:6px">استفاده از پروکسی</label>
+        <input type="checkbox" id="use-proxy" title="اگر پروکسی/سرور داری اینو فعال کن" style="transform:scale(1.1)">
+        <button id="close-chat" aria-label="بستن" style="background:transparent;border:none;color:var(--muted);cursor:pointer">✕</button>
       </div>
     </div>
 
-    <div id="chatBody" class="chat-body" aria-live="polite">
-      <div class="msg bot">سلام! من چت‌بات آزمایشی Gemini هستم. هر سؤال داری بپرس :)</div>
+    <div class="chat-body" id="chat-body" role="log" aria-live="polite"></div>
+
+    <div class="chat-input">
+      <textarea id="chat-input" placeholder="متن خود را اینجا بنویس..."></textarea>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button id="send-btn" class="btn">ارسال</button>
+        <button id="clear-btn" class="btn danger" style="background:#ff6b6b;color:white;padding:6px 10px">پاک کردن</button>
+      </div>
     </div>
 
-    <div class="chat-footer">
-      <input id="chatInput" placeholder="سؤالتو بنویس..." aria-label="متن پیام">
-      <button id="sendBtn">ارسال</button>
+    <div class="settings-row small" style="padding:8px 12px; border-top:1px solid rgba(255,255,255,0.03)">
+      <div>حالت پاسخ: </div>
+      <select id="model-select" style="background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04);padding:6px;border-radius:6px">
+        <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+        <option value="gemini-1.5-flash-latest">gemini-1.5-flash-latest</option>
+      </select>
+      <div style="margin-right:6px"> | </div>
+      <div class="small">حافظه جلسه: فعال</div>
     </div>
   </div>
 
   <script>
-    /********************************************************
-     *  تنظیمات مهم:
-     *  اگر URL سرورت فرق داره همین متغیر رو تغییر بده.
-     *  (کلید API نباید در این فایل باشه؛ روی Render ذخیره شده)
-     ********************************************************/
-    const GEMINI_ENDPOINT = 'https://mcstormmarket-1.onrender.com/api/gemini';
+    /* ================== تنظیمات اولیه (اینجا مقادیر لازم را انتخاب کن) ==================
+       اگر سرور پروکسی داری (مثلاً Render/Railway/Cloudflare/Fly) آدرس آن را در PROXY_URL قرار بده
+       و تیک "استفاده از پروکسی" را در چت فعال کن.
+       در غیر اینصورت، اگر می‌خواهی مستقیم از مرورگر به Google بزنیم (مخاطره‌آمیز) کلید API را در GEMINI_API_KEY قرار بده.
+       اگر هیچ‌کدام را نذاری، چت حالت آفلاین خواهد بود و پیام خطا می‌دهد.
+    */
+    const USE_PROXY_DEFAULT = true; // اگر می‌خواهی پیش‌فرض پروکسی فعال باشد
+    const PROXY_URL = "/api/gemini"; // اگر سرور داری آدرس کامل مثل https://your-app.onrender.com/api/gemini بذار
+    const GEMINI_API_KEY = "AIzaSyAUWACaMmkve8aKr-viKgYq3xyuCcy3GXg";
 
-    // ========== Nav toggle packs/skins ==========
-    const packsSection = document.getElementById('packs-section');
-    const skinsSection = document.getElementById('skins-section');
-    document.getElementById('btn-packs').addEventListener('click', () => {
-      packsSection.style.display = 'block';
-      skinsSection.style.display = 'none';
-      window.scrollTo({top: packsSection.offsetTop - 20, behavior: 'smooth'});
-    });
-    document.getElementById('btn-skins').addEventListener('click', () => {
-      packsSection.style.display = 'none';
-      skinsSection.style.display = 'block';
-      window.scrollTo({top: skinsSection.offsetTop - 20, behavior: 'smooth'});
-    });
-
-    // ========== Google Sign-in handlers ==========
-    function parseJwt(token) {
+    // ================== Google Sign-In handling (از فایل قبلی گرفته شده) ==================
+    function handleCredentialResponse(response) {
       try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
-          '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-        ).join(''));
-        return JSON.parse(jsonPayload);
+        const data = parseJwt(response.credential);
+        const user = { name: data.name || data.email, picture: data.picture, email: data.email };
+        localStorage.setItem('gm_user', JSON.stringify(user));
+        showProfile(user);
       } catch (e) {
-        return {};
+        console.error("google parse error", e);
       }
     }
 
-    function handleCredentialResponse(response) {
-      const data = parseJwt(response.credential);
-      const user = { name: data.name || data.email, picture: data.picture || '', email: data.email || '' };
-      localStorage.setItem('gm_user', JSON.stringify(user));
-      showProfile(user);
+    function parseJwt(token) {
+      const base64Url = token.split('.')[1] || '';
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
+        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+      ).join(''));
+      return JSON.parse(jsonPayload);
     }
 
     function showProfile(user) {
       document.querySelector('.g_id_signin').style.display = 'none';
       const up = document.getElementById('user-profile');
-      document.getElementById('user-pic').src = user.picture || 'favicon.png';
-      document.getElementById('user-name').textContent = user.name || user.email;
+      document.getElementById('user-pic').src = user.picture;
+      document.getElementById('user-name').textContent = user.name;
       up.style.display = 'flex';
     }
 
-    // logout
-    const userPic = document.getElementById('user-pic');
-    const logoutMenu = document.getElementById('logout-menu');
-    const logoutBtn = document.getElementById('logout-btn');
-
-    userPic?.addEventListener('click', (e) => {
-      logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
-      e.stopPropagation();
-    });
-
-    logoutBtn?.addEventListener('click', () => {
-      if(window.google?.accounts?.id) window.google.accounts.id.disableAutoSelect();
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect();
       localStorage.removeItem('gm_user');
       document.getElementById('user-profile').style.display = 'none';
       document.querySelector('.g_id_signin').style.display = 'inline-block';
-      logoutMenu.style.display = 'none';
+      document.getElementById('logout-menu').style.display = 'none';
       alert('با موفقیت خارج شدی 👋');
-    });
-
-    document.addEventListener('click', e => {
-      const up = document.getElementById('user-profile');
-      if(up && !up.contains(e.target)) logoutMenu.style.display = 'none';
     });
 
     const saved = localStorage.getItem('gm_user');
     if (saved) showProfile(JSON.parse(saved));
 
-    // ========== Gemini Chat ==========
-    const chatToggle = document.getElementById('chatToggle');
-    const chatPanel = document.getElementById('chatPanel');
-    const chatClose = document.getElementById('chatClose');
-    const chatBody = document.getElementById('chatBody');
-    const chatInput = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendBtn');
+    // ================== صفحه محصولات (مثل فایل قبلی) ==================
+    const packsSection = document.getElementById("packs-section");
+    const skinsSection = document.getElementById("skins-section");
+    document.getElementById("btn-packs").onclick = ()=> { packsSection.style.display='block'; skinsSection.style.display='none'; };
+    document.getElementById("btn-skins").onclick = ()=> { packsSection.style.display='none'; skinsSection.style.display='block'; };
 
-    function appendMessage(text, who='bot') {
-      const el = document.createElement('div');
-      el.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
-      el.textContent = text;
-      chatBody.appendChild(el);
+    // ================== Chat logic ==================
+    const chat = document.getElementById('chat');
+    const chatBody = document.getElementById('chat-body');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const useProxyCheck = document.getElementById('use-proxy');
+    const chatStatus = document.getElementById('chat-status');
+    const modelSelect = document.getElementById('model-select');
+    const closeChat = document.getElementById('close-chat');
+
+    // initialize
+    useProxyCheck.checked = !!USE_PROXY_DEFAULT;
+    updateChatStatus();
+
+    closeChat.addEventListener('click', ()=> chat.style.display='none');
+
+    // helper to append messages
+    function appendMsg(text, from='bot') {
+      const d = document.createElement('div');
+      d.className = 'msg ' + (from==='user' ? 'user' : 'bot');
+      d.innerHTML = `<div>${escapeHtml(text)}</div>`;
+      chatBody.appendChild(d);
       chatBody.scrollTop = chatBody.scrollHeight;
     }
 
-    function setTyping(on) {
-      if (on) {
-        const t = document.createElement('div');
-        t.className = 'msg bot typing';
-        t.id = 'typingIndicator';
-        t.textContent = 'در حال نوشتن...';
-        chatBody.appendChild(t);
-        chatBody.scrollTop = chatBody.scrollHeight;
+    function escapeHtml(unsafe) {
+      return unsafe
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;');
+    }
+
+    function updateChatStatus() {
+      const usingProxy = useProxyCheck.checked;
+      if (usingProxy) {
+        chatStatus.textContent = PROXY_URL ? 'پروکسی فعال' : 'پروکسی نامشخص';
+        chatStatus.style.color = PROXY_URL ? '#9fb6c6' : '#ffb86b';
       } else {
-        const t = document.getElementById('typingIndicator');
-        if (t) t.remove();
+        chatStatus.textContent = GEMINI_API_KEY ? 'کلید محلی فعال' : 'کلید محلی خالی';
+        chatStatus.style.color = GEMINI_API_KEY ? '#9fb6c6' : '#ffb86b';
       }
     }
 
-    chatToggle.addEventListener('click', () => {
-      const open = chatPanel.style.display !== 'none';
-      chatPanel.style.display = open ? 'none' : 'flex';
-      chatToggle.setAttribute('aria-expanded', (!open).toString());
-      if(!open) setTimeout(()=> chatInput.focus(), 120);
+    useProxyCheck.addEventListener('change', updateChatStatus);
+    modelSelect.addEventListener('change', ()=> {/* فقط برای نمایش انتخاب میشه */});
+
+    clearBtn.addEventListener('click', ()=> {
+      chatBody.innerHTML=''; chatInput.value=''; appendMsg('چت پاک شد — جلسه جدید شروع شد','bot');
     });
 
-    chatClose.addEventListener('click', () => {
-      chatPanel.style.display = 'none';
-      chatToggle.setAttribute('aria-expanded', 'false');
-    });
-
-    async function sendPrompt(prompt) {
-      prompt = (prompt || '').trim();
+    sendBtn.addEventListener('click', async ()=>{
+      const prompt = chatInput.value.trim();
       if (!prompt) return;
-      appendMessage(prompt, 'user');
-      chatInput.value = '';
-      setTyping(true);
+      appendMsg(prompt,'user');
+      chatInput.value=''; appendMsg('در حال ارسال...','bot');
+      await sendToGemini(prompt);
+    });
+
+    chatInput.addEventListener('keydown', (e)=>{
+      if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendBtn.click(); }
+    });
+
+    async function sendToGemini(prompt) {
+      // remove the 'در حال ارسال...' placeholder (the last bot msg)
+      const lastBot = Array.from(chatBody.querySelectorAll('.msg.bot')).pop();
+      if (lastBot) lastBot.remove();
+
+      const usingProxy = useProxyCheck.checked;
+      const model = modelSelect.value;
 
       try {
-        const res = await fetch(GEMINI_ENDPOINT, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ prompt })
-        });
-
-        if (!res.ok) {
-          const txt = await res.text().catch(()=>res.status);
-          throw new Error('خطا از سرور: ' + txt);
-        }
-
-        const data = await res.json();
-        setTyping(false);
-
-        if (data && data.reply) {
-          appendMessage(data.reply, 'bot');
+        let reply = '';
+        if (usingProxy) {
+          if (!PROXY_URL) throw new Error('PROXY_URL تعریف نشده است.');
+          const res = await fetch(PROXY_URL, {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ prompt, model })
+          });
+          if (!res.ok) {
+            const text = await res.text();
+            throw new Error('پروکسی پاسخ سالم نداد: ' + text);
+          }
+          const data = await res.json();
+          reply = data.reply || JSON.stringify(data);
         } else {
-          appendMessage('پاسخی دریافت نشد یا فرمت پاسخ غیرمنتظره بود.', 'bot');
+          // direct call to Google Gemini API from browser (ممکن است با CORS مواجه شوی)
+          if (!GEMINI_API_KEY) throw new Error('GEMINI_API_KEY در تنظیمات صفحه خالی است.');
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`;
+          const gResp = await fetch(apiUrl, {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }]
+            })
+          });
+          const gdata = await gResp.json();
+          if (gdata?.candidates?.length) {
+            const parts = gdata.candidates[0].content.parts;
+            reply = Array.isArray(parts) ? parts.map(p=>p.text).join('\n') : JSON.stringify(gdata);
+          } else if (gdata?.error) {
+            throw new Error('Google API: ' + (gdata.error.message || JSON.stringify(gdata.error)));
+          } else reply = JSON.stringify(gdata);
         }
+
+        appendMsg(reply,'bot');
       } catch (err) {
-        setTyping(false);
-        appendMessage('خطا: ' + (err.message || err), 'bot');
+        appendMsg('⚠️ خطا: ' + (err.message || err),'bot');
         console.error(err);
       }
     }
 
-    sendBtn.addEventListener('click', () => sendPrompt(chatInput.value));
-    chatInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendBtn.click();
-      }
+    // initial helper message
+    appendMsg("سلام! من بات تستیِ Storm هستم. برای شروع، پیامی ارسال کن. بالای چت میتونی انتخاب کنی از پروکسی استفاده کنی یا مستقیم.", 'bot');
+
+    // ========== small utilities ==========
+    // show profile menu
+    const userPic = document.getElementById('user-pic');
+    const logoutMenu = document.getElementById('logout-menu');
+    userPic?.addEventListener('click', ()=> {
+      logoutMenu.style.display = logoutMenu.style.display === 'block' ? 'none' : 'block';
+    });
+    document.addEventListener('click', e=>{
+      const up = document.getElementById('user-profile');
+      if (!up) return;
+      if (!up.contains(e.target)) logoutMenu.style.display = 'none';
     });
 
-    // handy: allow quick demo prompt by typing "/demo"
-    chatInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && chatInput.value.trim() === '/demo') {
-        e.preventDefault();
-        sendPrompt('سلام! توضیح بده ریسورسپک استورم چیه و چطور نصب می‌شود.');
-      }
+    // auto-focus chat when click pack view
+    document.querySelectorAll('.view').forEach(a=>{
+      a.addEventListener('click', e=>{
+        // allow link to open if real page exists; focus chat
+        setTimeout(()=> {
+          chat.style.display = 'flex';
+          chatInput.focus();
+        }, 100);
+      });
     });
 
-    // accessibility: focus chat with ctrl+k
-    document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        if (chatPanel.style.display === 'none') chatToggle.click();
-        chatInput.focus();
-      }
-    });
-
-    // small auto-welcome after open
-    chatToggle.addEventListener('click', () => {
-      if (!localStorage.getItem('gemini_welcomed')) {
-        setTimeout(()=> appendMessage('برای تست می‌تونی بنویسی: "سلام" یا "این پک چی دارد؟"', 'bot'), 600);
-        localStorage.setItem('gemini_welcomed', '1');
-      }
-    });
-
+    // ========== end ==========
   </script>
 </body>
 </html>
